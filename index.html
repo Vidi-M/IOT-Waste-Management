@@ -1,45 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Data Table</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 50%;
-            margin: auto;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>User Data</h1>
-    <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <button type="submit">Submit</button>
-    </form>
-    <br>
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Timestamp</th>
-        </tr>
-        {% if user_data %}
-            {% for entry_key, entry_data in user_data.items() %}
-            <tr>
-                <td>{{ entry_data['username'] }}</td>
-                <td>{{ entry_data['timestamp'] }}</td>
-            </tr>
-            {% endfor %}
-        {% else %}
-            <tr>
-                <td colspan="2">No user data available.</td>
-            </tr>
-        {% endif %}
-    </table>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-8">User Data</h1>
+        <form method="post" class="mb-8">
+            <label for="username" class="mr-2">Username:</label>
+            <input type="text" id="username" name="username" required class="border border-gray-300 px-4 py-2">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 ml-2 rounded">Submit</button>
+        </form>
+        <table class="w-full border-collapse border">
+            <thead>
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2">Username</th>
+                    <th class="border border-gray-300 px-4 py-2">Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if user_data %}
+                {% for entry_key, entry_data in user_data.items() %}
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2">{{ entry_data['username'] }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ entry_data['timestamp'] }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="2" class="border border-gray-300 px-4 py-2">No user data available.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 </body>
+
 </html>
