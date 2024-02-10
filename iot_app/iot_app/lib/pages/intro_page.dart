@@ -19,7 +19,7 @@ class IntroPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Image.asset(
-                  'lib/images/bin.png',
+                  'lib/images/binman2.png',
                   height: 240,
                 ),
               ),

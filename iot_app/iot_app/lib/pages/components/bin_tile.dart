@@ -8,7 +8,7 @@ class BinTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 25),
+      margin: const EdgeInsets.only(left: 25),
       width: 280,
       decoration: BoxDecoration(
         color: Colors.grey[100],
@@ -39,7 +39,7 @@ class BinTile extends StatelessWidget {
 
           //map
           Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Image.asset(bin.maplogo),
           )
         ],
