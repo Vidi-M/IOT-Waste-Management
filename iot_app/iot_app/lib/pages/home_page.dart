@@ -36,10 +36,10 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.red, // Replace with appropriate colors
                   ),
                   margin: const EdgeInsets.only(right: 10),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       '1',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.blueGrey,
                         fontWeight: FontWeight.bold,
                       ),
