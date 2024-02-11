@@ -40,8 +40,9 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       '1',
                       style: TextStyle(
-                        color: Colors.blueGrey,
-                        fontWeight: FontWeight.bold,
+                        color: Colors.white70,
+                        //fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
                   ),
@@ -51,9 +52,19 @@ class _HomePageState extends State<HomePage> {
                   height: 30,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.yellow, // Replace with appropriate colors
+                    color: Colors.amber, // Replace with appropriate colors
                   ),
                   margin: const EdgeInsets.only(right: 10),
+                  child: const Center(
+                    child: Text(
+                      '2',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        //fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   width: 30,
@@ -63,6 +74,16 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.green, // Replace with appropriate colors
                   ),
                   margin: const EdgeInsets.only(right: 10),
+                  child: const Center(
+                    child: Text(
+                      '3',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        //fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -105,11 +126,14 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     Bin bin = Bin(
                         img: 'lib/images/bin.png',
-                        name: 'Bin1',
+                        name: 'Bin${index + 1}',
                         data: '100%',
                         maplogo: 'lib/images/map.png');
-                    return BinTile(
-                      bin: bin,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: BinTile(
+                        bin: bin,
+                      ),
                     );
                   },
                 ),
@@ -129,12 +153,19 @@ class _HomePageState extends State<HomePage> {
         width: double.infinity, // Make the container take up the entire width
         padding: const EdgeInsets.all(16), // Add padding to the button
         color: Colors.green[300], // Background color of the container
-        child: ElevatedButton(
+        child: ElevatedButton.icon(
           // Button widget
           onPressed: () {
             // Handle button press
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => YourNextPage(), // Replace YourNextPage() with the page you want to navigate to
+            //   ),
+            // );
           },
-          child: const Text('Your Button Text'), // Text of the button
+          icon: const Icon(Icons.add),
+          label: const Text('Add Bin'), // Text of the button
         ),
       ),
     );
