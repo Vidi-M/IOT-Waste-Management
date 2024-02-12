@@ -79,6 +79,8 @@ class BinTile extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         CircularPercentIndicator(
+                          animation: true,
+                          animationDuration: 1000,
                           radius: 40,
                           lineWidth: 8,
                           percent: 0.50,
