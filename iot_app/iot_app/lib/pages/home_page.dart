@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iot_app/pages/map_page.dart';
 import 'package:iot_app/pages/models/bin.dart';
 
 import 'components/bin_tile.dart';
@@ -91,9 +92,13 @@ class _HomePageState extends State<HomePage> {
             const Spacer(),
             // Circle button on the top right
             GestureDetector(
-              onTap: () {
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MapPage(),
+                  ),
                 // Handle button press
-              },
+              ),
               child: Container(
                 width: 40,
                 height: 40,
