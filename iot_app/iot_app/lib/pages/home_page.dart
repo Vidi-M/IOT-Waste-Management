@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iot_app/pages/map_page.dart';
 import 'package:iot_app/pages/models/bin.dart';
+import 'package:iot_app/pages/add_bin_page.dart';
 
 import 'components/bin_tile.dart';
 
@@ -162,12 +163,12 @@ class _HomePageState extends State<HomePage> {
           // Button widget
           onPressed: () {
             // Handle button press
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => YourNextPage(), // Replace YourNextPage() with the page you want to navigate to
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddBinPage(), // Replace YourNextPage() with the page you want to navigate to
+              ),
+            );
           },
           icon: const Icon(Icons.add),
           label: const Text('Add Bin'), // Text of the button
