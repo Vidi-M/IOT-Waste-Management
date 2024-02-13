@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator';
+import 'package:geolocator/geolocator.dart';
+import 'components/find_location.dart';
 
 class AddBinPage extends StatefulWidget {
   const AddBinPage({Key? key}) : super(key: key);
@@ -12,6 +15,7 @@ class _AddBinPageState extends State<AddBinPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _binNameController = TextEditingController();
   TextEditingController _locationController = TextEditingController();
+  final LocationFinder location = LocationFinder();
 
   @override
   Widget build(BuildContext context) {
@@ -26,40 +30,49 @@ class _AddBinPageState extends State<AddBinPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter a bin name',
-                  ),
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: TextFormField(
-                  controller: _locationController,
+                  controller: _binNameController,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: 'Enter bin location',
+                    labelText: 'Enter bin name',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter bin location';
+                      return 'Please enter bin name';
                     }
                     return null;
                   },
                 ),
               ),
-              const SizedBox(height: 32),
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      await location.getCurrentPosition();
+                      setState(() {
+                      });
+                    },
+                    child: const Text("Get Current Location"),
+                  ),
+                  const SizedBox(height: 32),
+                  Text('LAT: ${location.currentPosition?.latitude ?? ""}'),
+                  Text('LNG: ${location.currentPosition?.longitude ?? ""}'),
+                  Text('ADDRESS: ${location.currentAddress ?? ""}'),
+                ]
+              ),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     // Add functionality to save bin here
                     String binName = _binNameController.text;
-                    String location = _locationController.text;
+                    double lat = location.currentPosition!.latitude;
+                    double lng = location.currentPosition!.longitude;
                     print('Bin Name: $binName');
-                    print('Location: $location');
+                    print('LatLng: ($lat, $lng)');
                   }
                 },
                 child: Text('Add Bin'),

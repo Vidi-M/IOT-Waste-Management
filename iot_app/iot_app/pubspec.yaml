@@ -38,6 +38,9 @@ dependencies:
   percent_indicator: ^4.2.3
   provider: ^6.1.1
   google_maps_flutter: ^2.5.0
+  geolocator: ^8.2.0
+  geocoding: ^2.0.4
+  get: ^4.6.6
 
 
 dev_dependencies:
