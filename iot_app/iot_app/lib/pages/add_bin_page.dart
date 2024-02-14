@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'components/find_location.dart';
@@ -15,7 +16,16 @@ class _AddBinPageState extends State<AddBinPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _binNameController = TextEditingController();
   TextEditingController _locationController = TextEditingController();
+
   final LocationFinder location = LocationFinder();
+
+  late DatabaseReference dbRef;
+
+  @override
+  void initState() {
+    super.initState();
+    dbRef = FirebaseDatabase.instance.ref().child("Bins");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +83,14 @@ class _AddBinPageState extends State<AddBinPage> {
                     double lng = location.currentPosition!.longitude;
                     print('Bin Name: $binName');
                     print('LatLng: ($lat, $lng)');
+
+                    Map <String, String> bins = {
+                      'binName': _binNameController.text,
+                      'lat': location.currentPosition!.latitude.toString(),
+                      'lng': location.currentPosition!.longitude.toString()
+                    };
+
+                    dbRef.push().set(bins);
                   }
                 },
                 child: Text('Add Bin'),
