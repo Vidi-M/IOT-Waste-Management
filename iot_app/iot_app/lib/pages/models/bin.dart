@@ -1,13 +1,16 @@
-
 class Bin {
   final String img;
   final String name;
-  final String data;
+  late final String fullness;
+  late final String temp;
+  late final String humidity;
   final String maplogo;
 
   Bin(
       {required this.img,
       required this.name,
-      required this.data,
+      required this.fullness,
+      required this.temp,
+      required this.humidity,
       required this.maplogo});
 }

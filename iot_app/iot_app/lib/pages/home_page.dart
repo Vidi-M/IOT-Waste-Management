@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iot_app/pages/addbinpage.dart';
 import 'package:iot_app/pages/models/bin.dart';
 
 import 'components/bin_tile.dart';
@@ -11,6 +12,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // void increaseValues(Bin bin) {
+  //   setState(() {
+  //     // Increase the values here
+  //     bin.fullness = (double.parse(bin.fullness) + 10).clamp(0, 100).toString();
+  //     bin.temp = (double.parse(bin.temp) + 5).clamp(0, maxTemp).toString();
+  //     bin.humidity = (double.parse(bin.humidity) + 5).clamp(0, maxHumidity).toString();
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,12 +136,16 @@ class _HomePageState extends State<HomePage> {
                     Bin bin = Bin(
                         img: 'lib/images/bin.png',
                         name: 'Bin${index + 1}',
-                        data: '100%',
+                        fullness: '25',
+                        temp: '20',
+                        humidity: '65',
                         maplogo: 'lib/images/map.png');
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: BinTile(
                         bin: bin,
+                        //onEditPressed: increaseValues,
                       ),
                     );
                   },
@@ -157,12 +170,13 @@ class _HomePageState extends State<HomePage> {
           // Button widget
           onPressed: () {
             // Handle button press
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => YourNextPage(), // Replace YourNextPage() with the page you want to navigate to
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    const AddBinPage(), // Replace YourNextPage() with the page you want to navigate to
+              ),
+            );
           },
           icon: const Icon(Icons.add),
           label: const Text('Add Bin'), // Text of the button
