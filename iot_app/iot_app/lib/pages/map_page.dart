@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iot_app/pages/add_bin_page.dart';
 import 'package:iot_app/pages/home_page.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -15,11 +16,47 @@ class _MapPageState extends State<MapPage>
   late AnimationController _controller;
 
   static const LatLng _pImperial = LatLng(51.498611, -0.174833);
+  late DatabaseReference dbRef;
+  Set<Marker> binMarkers = {};
+
+  void fetchMarkers() async {
+    print("fetching data");
+    DataSnapshot snapshot = await dbRef.get();
+    Map<dynamic, dynamic> bin = snapshot.value as Map;
+    print(bin);
+
+    List<LatLng> coordinates = [];
+    List<String> names = [];
+
+    bin.forEach((key, value) {
+      names.add(value["binName"]);
+      double lat = double.parse(value["lat"]);
+      double lng = double.parse(value['lng']);
+      coordinates.add(LatLng(lat, lng));
+    });
+
+    print(coordinates);
+
+    for (int i = 0; i < coordinates.length; i++) {
+      binMarkers.add(
+        Marker(
+          markerId: MarkerId(names[i]),
+          icon: BitmapDescriptor.defaultMarker,
+          position: coordinates[i],
+          // You can customize other properties of the marker here
+          // For example: icon, infoWindow, etc.
+        )
+      );
+    }
+
+  }
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    dbRef = FirebaseDatabase.instance.ref().child("Bins");
+    fetchMarkers();
   }
 
   @override
@@ -89,17 +126,12 @@ class _MapPageState extends State<MapPage>
         ),
       ),
       body: GoogleMap(
+        markers: binMarkers,
         initialCameraPosition: CameraPosition(
           target: _pImperial,
           zoom:13,
-        ),
-        markers: {
-          Marker(
-            markerId: MarkerId("_currentLocation"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pImperial)
-        },
-      ),
+        ), 
+      ) ,
     );
   }
 }
