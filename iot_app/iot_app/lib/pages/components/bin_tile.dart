@@ -50,10 +50,10 @@ class BinTile extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const AddBinPage(), // Replace YourNextPage() with the page you want to navigate to
+                            const TimerPage(), // Replace YourNextPage() with the page you want to navigate to
                       ),
                     );
-                    // Handle edit button tap
+                    
                   },
                 ),
               ],
@@ -125,6 +125,8 @@ class BinTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       LinearPercentIndicator(
+                        animation: true,
+                        animationDuration: 1000,
                         lineHeight: 20,
                         percent: double.parse(bin.temp) / maxTemp,
                         progressColor:
@@ -151,57 +153,12 @@ class BinTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Humidity',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      LinearPercentIndicator(
-                        lineHeight: 20,
-                        percent: double.parse(bin.humidity) / maxHumidity,
-                        progressColor:
-                            getColor(double.parse(bin.humidity) / maxHumidity),
-                        backgroundColor:
-                            getColor(double.parse(bin.humidity) / maxHumidity)
-                                .withOpacity(0.2),
-                      )
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
 
           // //Spacer
-          const SizedBox(height: 10),
-
-          // //map
-          // Padding(
-          //   padding: const EdgeInsets.all(10.0),
-          //   child: Container(
-          //     padding: const EdgeInsets.all(10.0),
-          //     child: Image.asset(
-          //       bin.maplogo,
-          //       height: 100,
-          //     ),
-          //   ),
-          // ),
-
-          // edit button
-
-          // Positioned(
-          //   top: 10,
-          //   left: 10,
-          //   child: IconButton(
-          //     icon: const Icon(Icons.edit),
-          //     onPressed: () {},
-          //   ),
-          // )
+          const SizedBox(height: 10)
         ],
       ),
     );

@@ -9,8 +9,7 @@ Bin bin = Bin(
     img: 'lib/images/bin.png',
     name: 'Bin',
     fullness: '25',
-    temp: '20',
-    humidity: '65',
+    temp: '40',
     maplogo: 'lib/images/map.png');
 
 Color getColor(double value) {
@@ -23,23 +22,30 @@ Color getColor(double value) {
   }
 }
 
-class AddBinPage extends StatefulWidget {
-  const AddBinPage({Key? key}) : super(key: key);
+class TimerPage extends StatefulWidget {
+  const TimerPage({Key? key}) : super(key: key);
 
   @override
-  _AddBinPageState createState() => _AddBinPageState();
+  _TimerPageState createState() => _TimerPageState();
 }
 
-class _AddBinPageState extends State<AddBinPage> {
+class _TimerPageState extends State<TimerPage> {
   ///TIMER
   late CountdownTimer _countdownTimer;
+  int _remainingSeconds = 360; // Initial remaining time (6 minutes)
 
   @override
   void initState() {
     super.initState();
     _countdownTimer = CountdownTimer(
-      seconds: 360, // 6 minutes
+      seconds: _remainingSeconds,
       onTick: (seconds) {
+        if (double.parse(bin.temp) > 25) {
+          print("I have reached this temp");
+          // Subtract 10 seconds from remaining time
+          _remainingSeconds += 10;
+        }
+
         setState(() {});
       },
       onFinished: () {
@@ -62,13 +68,9 @@ class _AddBinPageState extends State<AddBinPage> {
   @override
   Widget build(BuildContext context) {
     //TIMER
-    int remainingSeconds = TimerDifferenceHandler.instance.remainingSeconds;
+    int _remainingSeconds = TimerDifferenceHandler.instance.remainingSeconds;
     int totalSeconds = 360; // 6 minutes
-    double progress = remainingSeconds / (-totalSeconds);
-
-    // if (double.parse(bin.temp) > 25) || (double.parse(bin.humidity) > 80){
-    //   remainingSeconds - 10;
-    // };
+    double progress = _remainingSeconds / (-totalSeconds);
 
     //TIMER
 
@@ -89,12 +91,6 @@ class _AddBinPageState extends State<AddBinPage> {
               decoration: InputDecoration(labelText: 'Bin Location'),
             ),
             const SizedBox(height: 16),
-            // LinearPercentIndicator(
-            //   lineHeight: 20,
-            //   percent: progress,
-            //   progressColor: Colors.blue,
-            //   backgroundColor: Colors.blue.shade200,
-            // ),
 
             //TIMER
             CircularPercentIndicator(

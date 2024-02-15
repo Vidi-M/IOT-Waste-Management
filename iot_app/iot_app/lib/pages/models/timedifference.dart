@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class TimerDifferenceHandler {
   static late DateTime endingTime = DateTime.now();
+  //static late DateTime? endingTime; // Nullable
 
   static final TimerDifferenceHandler _instance = TimerDifferenceHandler();
 
