@@ -14,7 +14,6 @@ Color getColor(double value) {
 }
 
 int maxTemp = 25;
-int maxHumidity = 80;
 
 class BinTile extends StatelessWidget {
   Bin bin;
@@ -53,7 +52,6 @@ class BinTile extends StatelessWidget {
                             const TimerPage(), // Replace YourNextPage() with the page you want to navigate to
                       ),
                     );
-                    
                   },
                 ),
               ],
@@ -135,24 +133,12 @@ class BinTile extends StatelessWidget {
                             getColor(double.parse(bin.temp) / maxTemp)
                                 .withOpacity(0.2),
                       )
-                      // CircularPercentIndicator(
-                      //   animation: true,
-                      //   animationDuration: 1000,
-                      //   radius: 40,
-                      //   lineWidth: 8,
-                      //   percent: 0.50,
-                      //   center: Text(
-                      //     bin.fullness,
-                      //     style: const TextStyle(fontSize: 16),
-                      //   ),
-                      //   progressColor: Colors.blue,
-                      //   backgroundColor: Colors.blue.shade200,
-                      //   circularStrokeCap: CircularStrokeCap.round,
-                      // ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 5),
+                //TIMER GOES HERE
+                TimerPage(),
               ],
             ),
           ),

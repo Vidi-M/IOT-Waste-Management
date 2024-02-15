@@ -75,42 +75,20 @@ class _TimerPageState extends State<TimerPage> {
     //TIMER
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Bin'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const TextField(
-              decoration: InputDecoration(labelText: 'Bin Name'),
-            ),
-            const SizedBox(height: 16),
-            // Add more input fields for other bin details
-            const TextField(
-              decoration: InputDecoration(labelText: 'Bin Location'),
-            ),
-            const SizedBox(height: 16),
-
+        child:
             //TIMER
             CircularPercentIndicator(
-              // animation: false,
-              // animationDuration: 1000,
-              radius: 40,
-              lineWidth: 8,
-              percent: progress,
-              progressColor: getColor(progress),
-              backgroundColor: getColor(progress).withOpacity(0.2),
-            ),
-            //TIMER
-
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Save'),
-            ),
-          ],
+          // animation: false,
+          // animationDuration: 1000,
+          radius: 40,
+          lineWidth: 8,
+          percent: progress,
+          progressColor: getColor(progress),
+          backgroundColor: getColor(progress).withOpacity(0.2),
         ),
+        //TIMER
       ),
     );
   }
