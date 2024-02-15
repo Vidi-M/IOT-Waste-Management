@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iot_app/pages/addbinpage.dart';
+import 'package:iot_app/pages/timer.dart';
 import 'package:iot_app/pages/models/bin.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
