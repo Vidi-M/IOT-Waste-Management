@@ -16,12 +16,12 @@ Color getColor(double value) {
 int maxTemp = 25;
 
 class BinTile extends StatelessWidget {
-  Bin bin;
-  //final Function(Bin) onEditPressed;
+  final Bin bin;
+
   BinTile({
-    super.key,
+    Key? key,
     required this.bin,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,67 +32,42 @@ class BinTile extends StatelessWidget {
         color: Colors.grey[100],
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.access_time_filled_sharp,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const TimerPage(), // Replace YourNextPage() with the page you want to navigate to
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-          // Rest of BinTile content...
-
-          //bin pic
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: ClipRRect(
+      child: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Column(
+          children: [
+            // Bin Picture
+            ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.asset(bin.img, height: 200, fit: BoxFit.cover),
             ),
-          ),
-
-          //name
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(
+            const SizedBox(
+                height: 10), // Spacer between Bin Picture and Bin Name
+            // Bin Name
+            Text(
               bin.name,
               style: TextStyle(
                 color: Colors.grey[600],
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-
-          //data
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
+            const SizedBox(
+                height: 20), // Spacer between Bin Name and Circular Indicators
+            // Row for Circular Indicators
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // Circular Indicator for Fullness
                 Column(
                   children: [
                     const Text(
                       'Fullness',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
                     CircularPercentIndicator(
                       animation: true,
                       animationDuration: 1000,
@@ -107,45 +82,53 @@ class BinTile extends StatelessWidget {
                       backgroundColor:
                           getColor(double.parse(bin.fullness) / 100)
                               .withOpacity(0.2),
-                      circularStrokeCap: CircularStrokeCap.round,
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Temperature',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                // Circular Indicator for Timer
+                Column(
+                  children: [
+                    const Text(
+                      'Temperature',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(height: 5),
-                      LinearPercentIndicator(
-                        animation: true,
-                        animationDuration: 1000,
-                        lineHeight: 20,
-                        percent: double.parse(bin.temp) / maxTemp,
-                        progressColor:
-                            getColor(double.parse(bin.temp) / maxTemp),
-                        backgroundColor:
-                            getColor(double.parse(bin.temp) / maxTemp)
-                                .withOpacity(0.2),
-                      )
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 10),
+                    CircularPercentIndicator(
+                      animation: true,
+                      animationDuration: 1000,
+                      radius: 40,
+                      percent: double.parse(bin.temp) / maxTemp,
+                      progressColor: getColor(double.parse(bin.temp) / maxTemp),
+                      backgroundColor:
+                          getColor(double.parse(bin.temp) / maxTemp)
+                              .withOpacity(0.2),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 5),
-                //TIMER GOES HERE
-                TimerPage(),
               ],
             ),
-          ),
-
-          // //Spacer
-          const SizedBox(height: 10)
-        ],
+            const SizedBox(
+                height:
+                    20), // Spacer between the Circular Indicators and Temperature
+            // Linear Indicator for Temperature
+            const Column(
+                  children: [
+                    Text(
+                      'Time Left',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Timer(),
+                  ],
+                ),
+          ],
+        ),
       ),
     );
   }

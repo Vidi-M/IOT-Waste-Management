@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const MapPage(),
-                  ),
+                ),
                 // Handle button press
               ),
               child: Container(
@@ -132,11 +132,11 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     Bin bin = Bin(
-                        img: 'lib/images/bin.png',
-                        name: 'Bin${index + 1}',
-                        fullness: '25',
-                        temp: '20',
-                        maplogo: 'lib/images/map.png');
+                      img: 'lib/images/bin.png',
+                      name: 'Bin${index + 1}',
+                      fullness: '25',
+                      temp: '20',
+                    );
 
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -170,7 +170,8 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddBinPage(), // Replace YourNextPage() with the page you want to navigate to
+                builder: (context) =>
+                    AddBinPage(), // Replace YourNextPage() with the page you want to navigate to
               ),
             );
             // Navigator.push(
