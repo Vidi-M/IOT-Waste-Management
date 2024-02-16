@@ -19,7 +19,7 @@ class _MapPageState extends State<MapPage>
   late DatabaseReference dbRef;
   Set<Marker> binMarkers = {};
 
-  void fetchMarkers() async {
+  Future<void> fetchMarkers() async {
     print("fetching data");
     DataSnapshot snapshot = await dbRef.get();
     Map<dynamic, dynamic> bin = snapshot.value as Map;
@@ -43,12 +43,16 @@ class _MapPageState extends State<MapPage>
           markerId: MarkerId(names[i]),
           icon: BitmapDescriptor.defaultMarker,
           position: coordinates[i],
+          onTap: () {
+            print(MarkerId(names[i]));
+          }
           // You can customize other properties of the marker here
           // For example: icon, infoWindow, etc.
         )
       );
     }
 
+    setState(() {});
   }
 
   @override
@@ -129,7 +133,7 @@ class _MapPageState extends State<MapPage>
         markers: binMarkers,
         initialCameraPosition: CameraPosition(
           target: _pImperial,
-          zoom:13,
+          zoom:15,
         ), 
       ) ,
     );

@@ -64,7 +64,7 @@ class BinTile extends StatelessWidget {
             padding: const EdgeInsets.all(2.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(bin.img, height: 200, fit: BoxFit.cover),
+              child: Image.asset(bin.img, height: 100, fit: BoxFit.cover),
             ),
           ),
 
@@ -138,7 +138,7 @@ class BinTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 //TIMER GOES HERE
-                TimerPage(),
+                //TimerPage(),
               ],
             ),
           ),

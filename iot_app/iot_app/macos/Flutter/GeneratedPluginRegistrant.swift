@@ -8,8 +8,6 @@ import Foundation
 import firebase_core
 import firebase_database
 import geolocator_apple
-import firebase_core
-import firebase_database
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))

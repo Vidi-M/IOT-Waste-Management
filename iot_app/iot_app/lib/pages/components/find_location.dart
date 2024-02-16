@@ -39,11 +39,13 @@ class LocationFinder {
 
   Future<void> getCurrentPosition() async {
     final hasPermission = await _handleLocationPermission();
+    print(hasPermission);
 
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
       // Handle current position
+      print("position found");
       currentPosition = position;
       _getAddressFromLatLng(currentPosition!);
     }).catchError((e) {
