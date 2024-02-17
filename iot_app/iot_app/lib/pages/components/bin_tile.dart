@@ -13,7 +13,7 @@ Color getColor(double value) {
   }
 }
 
-int maxTemp = 25;
+int maxTemp = 30;
 
 class BinTile extends StatelessWidget {
   final Bin bin;
@@ -115,18 +115,18 @@ class BinTile extends StatelessWidget {
                     20), // Spacer between the Circular Indicators and Temperature
             // Linear Indicator for Temperature
             const Column(
-                  children: [
-                    Text(
-                      'Time Left',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Timer(),
-                  ],
+              children: [
+                Text(
+                  'Time Left',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                SizedBox(height: 10),
+                Timer(),
+              ],
+            ),
           ],
         ),
       ),

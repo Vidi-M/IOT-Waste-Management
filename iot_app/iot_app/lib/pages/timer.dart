@@ -14,6 +14,8 @@ Bin bin = Bin(
   temp: '30',
 );
 
+
+
 Color getColor(double value) {
   if (value <= 0.5) {
     return Colors.green;
