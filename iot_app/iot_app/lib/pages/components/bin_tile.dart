@@ -39,7 +39,7 @@ class BinTile extends StatelessWidget {
             // Bin Picture
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(bin.img, height: 200, fit: BoxFit.cover),
+              child: Image.asset(bin.img, height: 100, fit: BoxFit.cover),
             ),
             const SizedBox(
                 height: 10), // Spacer between Bin Picture and Bin Name

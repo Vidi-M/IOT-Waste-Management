@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_app/pages/map_page.dart';
 import 'package:iot_app/pages/timer.dart';
@@ -16,6 +19,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  late DatabaseReference dbRef;
+  Set<Bin> binData = {};
+
+  // Future<void> fetchBins() async {
+  //   print("fetching data");
+  //   dbRef.onValue.listen((event) {
+  //     final Map<dynamic, dynamic> binData = event.snapshot.value as Map;
+  //     print(binData);
+
+  //     List<String> names = [];
+  //     List<double> fullness = [];
+  //     List<double> temps = [];
+
+  //     binData.forEach((key, value) {
+  //       names.add(value["binName"]);
+  //       double dist = value["distance"];
+  //       double fill = (27 - dist) / 27;
+  //       fullness.add(fill);
+  //       temps.add(value["temp"]);
+  //     });
+
+  //     print(fullness);
+  //   });
+    
+  //}
+
+  @override
+  void initState() {
+    super.initState();
+    dbRef = FirebaseDatabase.instance.ref().child("Bins");
+    // fetchBins();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Consumer<BinList>(
