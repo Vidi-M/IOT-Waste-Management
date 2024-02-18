@@ -117,18 +117,18 @@ class BinTile extends StatelessWidget {
                     20), // Spacer between the Circular Indicators and Temperature
             // Linear Indicator for Temperature
             Column(
-                  children: [
-                    const Text(
-                      'Time Left',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Timer(bin.temp),
-                  ],
+              children: [
+                const Text(
+                  'Time Left',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                const SizedBox(height: 10),
+                Timer(bin.temp),
+              ],
+            ),
           ],
         ),
       ),
