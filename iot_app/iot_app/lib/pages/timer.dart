@@ -1,8 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:iot_app/pages/components/notif.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
 import 'models/coundown.dart';
 import 'models/timedifference.dart';
 import 'package:iot_app/pages/models/bin.dart';
@@ -107,25 +104,30 @@ class _TimerState extends State<Timer> {
           progressColor: getColor(progress),
           backgroundColor: getColor(progress).withOpacity(0.2),
         ),
-
         if (countdownSeconds == 0)
-          const Padding(
-            padding: EdgeInsets.only(top: 16.0),
-            child: Text(
-              'Bin needs to be picked up!',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Column(
+              children: [
+                const Text(
+                  'Bin needs to be picked up!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.check_box),
+                  label: const Text('Add Bin'),
+                ),
+              ],
             ),
+            //ADD "BIN PICKED UP" BUTTON HERE
           ),
-        //TIMER
       ],
-    )
-        //TIMER
-
-        //TIMER
-        );
+    ));
   }
 }

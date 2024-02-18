@@ -1,9 +1,8 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:iot_app/pages/map_page.dart';
 import 'components/find_location.dart';
 
@@ -16,14 +15,13 @@ class AddBinPage extends StatefulWidget {
 
 class _AddBinPageState extends State<AddBinPage> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _binNameController = TextEditingController();
-  TextEditingController _locationController = TextEditingController();
+  final TextEditingController _binNameController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
 
   final LocationFinder location = LocationFinder();
 
   late DatabaseReference dbRef;
   List<String> nodes = [];
-
 
   Future<void> fetchNumBins() async {
     DataSnapshot snapshot = await dbRef.get();
@@ -44,7 +42,7 @@ class _AddBinPageState extends State<AddBinPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Bin'),
+        title: const Text('Add Bin'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -54,7 +52,8 @@ class _AddBinPageState extends State<AddBinPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: TextFormField(
                   controller: _binNameController,
                   decoration: const InputDecoration(
@@ -69,51 +68,49 @@ class _AddBinPageState extends State<AddBinPage> {
                   },
                 ),
               ),
+              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    print("position is being found");
+                    await location.getCurrentPosition();
+                    setState(() {});
+                  },
+                  child: const Text("Get Current Location"),
+                ),
+                //const SizedBox(height: 32),
+                Text('LAT: ${location.currentPosition?.latitude ?? ""}'),
+                Text('LNG: ${location.currentPosition?.longitude ?? ""}'),
+                Text('ADDRESS: ${location.currentAddress ?? ""}'),
+                //const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      // Add functionality to save bin here
+                      String binName = _binNameController.text;
+                      double lat = location.currentPosition!.latitude;
+                      double lng = location.currentPosition!.longitude;
+                      print('Bin Name: $binName');
+                      print('LatLng: ($lat, $lng)');
 
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      print("position is being found");
-                      await location.getCurrentPosition();
-                      setState(() {
-                      });
-                    },
-                    child: const Text("Get Current Location"),
-                  ),
-                  //const SizedBox(height: 32),
-                  Text('LAT: ${location.currentPosition?.latitude ?? ""}'),
-                  Text('LNG: ${location.currentPosition?.longitude ?? ""}'),
-                  Text('ADDRESS: ${location.currentAddress ?? ""}'),
-                  //const SizedBox(height: 32),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Add functionality to save bin here
-                        String binName = _binNameController.text;
-                        double lat = location.currentPosition!.latitude;
-                        double lng = location.currentPosition!.longitude;
-                        print('Bin Name: $binName');
-                        print('LatLng: ($lat, $lng)');
+                      Map<String, String> bins = {
+                        'binName': _binNameController.text,
+                        'lat': location.currentPosition!.latitude.toString(),
+                        'lng': location.currentPosition!.longitude.toString()
+                      };
 
-                        Map <String, String> bins = {
-                          'binName': _binNameController.text,
-                          'lat': location.currentPosition!.latitude.toString(),
-                          'lng': location.currentPosition!.longitude.toString()
-                        };
+                      String index = (nodes.length + 1).toString();
 
-                        String index = (nodes.length + 1).toString();
+                      dbRef.child("0$index").set(bins);
 
-                        dbRef.child("0$index").set(bins);
-
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MapPage()));
-                      }
-                    },
-                    child: Text('Add Bin'),
-                  ),
-                ]
-              ),
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => const MapPage()));
+                    }
+                  },
+                  child: const Text('Add Bin'),
+                ),
+              ]),
             ],
           ),
         ),
