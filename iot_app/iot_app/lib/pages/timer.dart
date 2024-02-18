@@ -6,13 +6,14 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'models/coundown.dart';
 import 'models/timedifference.dart';
 import 'package:iot_app/pages/models/bin.dart';
+import 'package:iot_app/pages/home_page.dart';
 
-Bin bin = Bin(
-  img: 'lib/images/bin.png',
-  name: 'Bin',
-  fullness: '25',
-  temp: '30',
-);
+// Bin bin = Bin(
+//   img: 'lib/images/bin.png',
+//   name: 'Bin',
+//   fullness: '25',
+//   temp: '30',
+// );
 
 Color getColor(double value) {
   if (value <= 0.5) {
@@ -25,7 +26,8 @@ Color getColor(double value) {
 }
 
 class Timer extends StatefulWidget {
-  const Timer({Key? key}) : super(key: key);
+  final String temp;
+  const Timer(this.temp, {Key? key}) : super(key: key);
 
   @override
   _TimerState createState() => _TimerState();
@@ -42,14 +44,16 @@ class _TimerState extends State<Timer> {
     super.initState();
     _countdownTimer = CountdownTimer(
       seconds: countdownSeconds,
+      temp: widget.temp,
       onTick: (seconds) {
-        if (double.parse(bin.temp) > 25) {
+        print("temp: ${widget.temp}");
+        if (double.parse(widget.temp) > 25) {
           countdownSeconds -=
-              2; // Increase remainingSeconds by 2 if temperature is above 25
+              5; // Increase remainingSeconds by 2 if temperature is above 25
         } else {
           countdownSeconds--;
         }
-        print(countdownSeconds);
+        print("countdownSeconds: $countdownSeconds");
 
         setState(() {
           //countdownSeconds;
@@ -73,7 +77,12 @@ class _TimerState extends State<Timer> {
     //TIMER
     int remainingSeconds = TimerDifferenceHandler.instance.remainingSeconds;
     int totalSeconds = 180; // 6 minutes
-    double progress = 1 - ((countdownSeconds) / (totalSeconds));
+    double progress;
+    if(countdownSeconds >= 0.0) {
+      progress = 1 - ((countdownSeconds) / (totalSeconds));
+    } else {
+      progress = 0.0;
+    }
     // if (double.parse(bin.temp) > 25) {
     //   remainingSeconds = remainingSeconds + 2;
     //   progress = (remainingSeconds) / (totalSeconds);
@@ -82,7 +91,7 @@ class _TimerState extends State<Timer> {
     //   progress = remainingSeconds / (totalSeconds);
     // }
 
-    print("Remaining Seconds: $remainingSeconds");
+    // print("Remaining Seconds: $remainingSeconds");
 
     //TIMER
     //print("timer countdown: $countdownSeconds");

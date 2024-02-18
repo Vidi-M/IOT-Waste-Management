@@ -13,7 +13,7 @@ Color getColor(double value) {
   }
 }
 
-int maxTemp = 25;
+int maxTemp = 30;
 
 class BinTile extends StatelessWidget {
   final Bin bin;
@@ -69,11 +69,12 @@ class BinTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     CircularPercentIndicator(
+                      animateFromLastPercent: true,
                       animation: true,
                       animationDuration: 1000,
                       radius: 40,
                       lineWidth: 8,
-                      percent: double.parse(bin.fullness) / 100,
+                      percent: double.parse(bin.fullness),
                       center: Text(
                         bin.fullness,
                         style: const TextStyle(fontSize: 16),
@@ -97,6 +98,7 @@ class BinTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     CircularPercentIndicator(
+                      animateFromLastPercent: true,
                       animation: true,
                       animationDuration: 1000,
                       radius: 40,
@@ -114,17 +116,17 @@ class BinTile extends StatelessWidget {
                 height:
                     20), // Spacer between the Circular Indicators and Temperature
             // Linear Indicator for Temperature
-            const Column(
+            Column(
                   children: [
-                    Text(
+                    const Text(
                       'Time Left',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Timer(),
+                    const SizedBox(height: 10),
+                    Timer(bin.temp),
                   ],
                 ),
           ],

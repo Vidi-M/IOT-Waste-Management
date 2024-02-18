@@ -17,40 +17,77 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   late DatabaseReference dbRef;
-  Set<Bin> binData = {};
+  late DatabaseReference nameRef;
+  Set<Bin> bins = {};
+  List<String> names = [];
 
-  // Future<void> fetchBins() async {
-  //   print("fetching data");
-  //   dbRef.onValue.listen((event) {
-  //     final Map<dynamic, dynamic> binData = event.snapshot.value as Map;
-  //     print(binData);
+  Future<void> fetchBins() async {
+    print("fetching names");
+    DataSnapshot snapshot = await nameRef.get();
+    Map<dynamic, dynamic> bin = snapshot.value as Map;
+    bin.forEach((key, value) {
+      names.add(value['binName']);
+    });
 
-  //     List<String> names = [];
-  //     List<double> fullness = [];
-  //     List<double> temps = [];
+    print(names);
 
-  //     binData.forEach((key, value) {
-  //       names.add(value["binName"]);
-  //       double dist = value["distance"];
-  //       double fill = (27 - dist) / 27;
-  //       fullness.add(fill);
-  //       temps.add(value["temp"]);
-  //     });
+    dbRef.onValue.listen((event) {
+      bins.clear();
+      final Map<dynamic, dynamic> binData = event.snapshot.value as Map;
+      //print(binData);
 
-  //     print(fullness);
-  //   });
+      
+      List<String> fullness = [];
+      List<double> temps = [];
+
+      binData.forEach((key, value) {
+        //names.add(value["binName"]);
+        Map currentData = value["current"];
+        double dist = currentData["distance"];
+        String fill;
+        if (dist < 27) {
+          fill = ((27 - dist) / 27).toStringAsFixed(2);
+        } else {
+          fill = '0.0';
+        }
+        fullness.add(fill);
+        double temp = currentData["temperature"];
+        if (temp < 30) {
+          temps.add(temp);
+        } else {
+          temps.add(30);
+        }
+      });
+
+      print(fullness);
+      print(temps);
+
+      for (int i = 0; i < fullness.length; i++) {
+        bins.add(
+          Bin(
+            img: "lib/images/bin.png",
+            name: names[i],
+            fullness: fullness[i],
+            temp: temps[i].toString(),
+        ));
+      }
     
-  //}
+    print("bins: {$bins}");
+    setState(() {});
+
+    });
+
+  }
 
   @override
   void initState() {
     super.initState();
-    dbRef = FirebaseDatabase.instance.ref().child("Bins");
-    // fetchBins();
+    dbRef = FirebaseDatabase.instance.ref().child("Raspi");
+    nameRef = FirebaseDatabase.instance.ref().child("Bins");
+    fetchBins();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,15 +202,10 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 4,
+                  itemCount: bins.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    Bin bin = Bin(
-                      img: 'lib/images/bin.png',
-                      name: 'Bin${index + 1}',
-                      fullness: '25',
-                      temp: '20',
-                    );
+                    Bin bin = bins.elementAt(index);
 
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),

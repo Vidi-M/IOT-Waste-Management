@@ -2,13 +2,6 @@ import 'dart:async';
 import 'timedifference.dart'; // Assuming TimerDifferenceHandler class is defined in a separate file
 import 'package:iot_app/pages/models/bin.dart';
 
-Bin bin = Bin(
-  img: 'lib/images/bin.png',
-  name: 'Bin',
-  fullness: '25',
-  temp: '30',
-);
-
 class CountdownTimer {
   //int _count;
   int _countdownSeconds;
@@ -20,6 +13,7 @@ class CountdownTimer {
 
   CountdownTimer({
     required int seconds,
+    required String temp,
     //required int remainingSeconds,
     Function(int)? onTick,
     Function()? onFinished,
@@ -32,15 +26,15 @@ class CountdownTimer {
   void start() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       //_temperatureDecreased = false;
-      if (double.parse(bin.temp) > 25) {
-        _countdownSeconds -= 2;
-        //_count = _countdownSeconds;
-      } else {
-        _countdownSeconds--;
-        // _count;
-      }
+      // if (double.parse(temp) > 25) {
+      //   _countdownSeconds -= 2;
+      //   //_count = _countdownSeconds;
+      // } else {
+      //   _countdownSeconds--;
+      //   // _count;
+      // }
 
-      print("countdownSec: $_countdownSeconds");
+      // print("countdownSec: $_countdownSeconds");
 
       if (_onTick != null) {
         _onTick!(_countdownSeconds);
