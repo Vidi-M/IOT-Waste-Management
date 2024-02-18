@@ -14,7 +14,7 @@ Color getColor(double value) {
 }
 
 int maxTemp = 30;
-int maxTemp = 30;
+//int maxTemp = 30;
 
 class BinTile extends StatelessWidget {
   final Bin bin;

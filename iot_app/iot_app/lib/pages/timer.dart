@@ -75,7 +75,7 @@ class _TimerState extends State<Timer> {
     int remainingSeconds = TimerDifferenceHandler.instance.remainingSeconds;
     int totalSeconds = 180; // 6 minutes
     double progress;
-    if(countdownSeconds >= 0.0) {
+    if (countdownSeconds >= 0.0) {
       progress = 1 - ((countdownSeconds) / (totalSeconds));
     } else {
       progress = 0.0;
@@ -121,11 +121,11 @@ class _TimerState extends State<Timer> {
                 ElevatedButton.icon(
                   onPressed: () {},
                   icon: const Icon(Icons.check_box),
-                  label: const Text('Add Bin'),
+                  label: const Text('Bin Picked Up'),
                 ),
               ],
             ),
-            //ADD "BIN PICKED UP" BUTTON HERE
+            
           ),
       ],
     ));
