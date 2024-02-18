@@ -1,9 +1,8 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_app/pages/map_page.dart';
-import 'package:iot_app/pages/timer.dart';
 import 'package:iot_app/pages/models/bin.dart';
 import 'package:iot_app/pages/models/bin_list.dart';
 import 'package:iot_app/pages/add_bin_page.dart';
@@ -205,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      AddBinPage(), // Replace YourNextPage() with the page you want to navigate to
+                      const AddBinPage(), // Replace YourNextPage() with the page you want to navigate to
                 ),
               );
             },

@@ -43,13 +43,13 @@ class CountdownTimer {
       print("countdownSec: $_countdownSeconds");
 
       if (_onTick != null) {
-        _onTick!(_countdownSeconds);
+        _onTick(_countdownSeconds);
       }
 
       if (_countdownSeconds <= 0) {
         stop();
         if (_onFinished != null) {
-          _onFinished!();
+          _onFinished();
         }
       }
     });
@@ -63,15 +63,16 @@ class CountdownTimer {
   }
 
   void resume() {
-    if (!_onPausedCalled)
+    if (!_onPausedCalled) {
       return; // If resume is called without pause, do nothing
+    }
     if (_timerHandler.remainingSeconds > 0) {
       _countdownSeconds = _timerHandler.remainingSeconds;
       start();
     } else {
       stop();
       if (_onTick != null) {
-        _onTick!(_countdownSeconds);
+        _onTick(_countdownSeconds);
       }
     }
     _onPausedCalled = false;

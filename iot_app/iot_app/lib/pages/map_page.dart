@@ -83,7 +83,7 @@ class _MapPageState extends State<MapPage>
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddBinPage(),
+                  builder: (context) => const AddBinPage(),
                   ),
                 // Handle button press
               ),
@@ -131,7 +131,7 @@ class _MapPageState extends State<MapPage>
       ),
       body: GoogleMap(
         markers: binMarkers,
-        initialCameraPosition: CameraPosition(
+        initialCameraPosition: const CameraPosition(
           target: _pImperial,
           zoom:15,
         ), 

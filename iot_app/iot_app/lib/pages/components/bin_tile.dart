@@ -18,7 +18,7 @@ int maxTemp = 30;
 class BinTile extends StatelessWidget {
   final Bin bin;
 
-  BinTile({
+  const BinTile({
     Key? key,
     required this.bin,
   }) : super(key: key);
