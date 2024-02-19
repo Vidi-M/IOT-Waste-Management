@@ -80,7 +80,7 @@ class BinTile extends StatelessWidget {
                         bin.fullness,
                         style: const TextStyle(fontSize: 16),
                       ),
-                      progressColor: getColor(double.parse(bin.fullness) / 100),
+                      progressColor: getColor(double.parse(bin.fullness)),
                       backgroundColor:
                           getColor(double.parse(bin.fullness) / 100)
                               .withOpacity(0.2),
@@ -104,6 +104,10 @@ class BinTile extends StatelessWidget {
                       animationDuration: 1000,
                       radius: 40,
                       percent: double.parse(bin.temp) / maxTemp,
+                      center: Text(
+                        bin.temp,
+                        style: const TextStyle(fontSize: 16),
+                      ),
                       progressColor: getColor(double.parse(bin.temp) / maxTemp),
                       backgroundColor:
                           getColor(double.parse(bin.temp) / maxTemp)

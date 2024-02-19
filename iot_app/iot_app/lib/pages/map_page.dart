@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iot_app/pages/add_bin_page.dart';
@@ -16,6 +17,8 @@ class _MapPageState extends State<MapPage>
   late AnimationController _controller;
 
   static const LatLng _pImperial = LatLng(51.498611, -0.174833);
+  late String current_uID = FirebaseAuth.instance.currentUser!.uid;
+  
   late DatabaseReference dbRef;
   Set<Marker> binMarkers = {};
 
@@ -59,7 +62,7 @@ class _MapPageState extends State<MapPage>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    dbRef = FirebaseDatabase.instance.ref().child("Bins");
+    dbRef = FirebaseDatabase.instance.ref().child("Bins").child(current_uID);
     fetchMarkers();
   }
 
