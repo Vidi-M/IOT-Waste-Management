@@ -101,13 +101,14 @@ class _LoginPageState extends State<LoginPage> {
                 height: 50,
               ),
               ElevatedButton.icon(
-                onPressed: () {Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const IntroPage(),
-                                  ),
-                              );
-                              },
+                onPressed: signIn,
+                                // Navigator.pushReplacement(
+                                // context,
+                                // MaterialPageRoute(
+                                //   builder: (context) => const IntroPage(),
+                                //   ),
+                                // );
+                              
                 label: const Text(
                   "Sign In",
                 ),
@@ -117,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 10,
               ),
               OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: signUp,
                 icon: const Icon(Icons.add_circle_outline_outlined),
                 label: const Text("Sign Up"),
               ),

@@ -36,9 +36,7 @@ class _TimerState extends State<Timer> {
   int countdownSeconds = 180; // Initial remaining time (3 minutes)
   bool isTimerRunning = false;
 
-  @override
-  void initState() {
-    super.initState();
+  void restartCounter() {
     _countdownTimer = CountdownTimer(
       seconds: countdownSeconds,
       temp: widget.temp,
@@ -52,6 +50,13 @@ class _TimerState extends State<Timer> {
         }
         print("countdownSeconds: $countdownSeconds");
 
+        if (countdownSeconds <= 0.0) {
+          _countdownTimer.stop(); // Stop the timer
+          setState(() {
+            isTimerRunning = false; // Update the state
+          });
+        }
+
         setState(() {
           //countdownSeconds;
         });
@@ -59,6 +64,12 @@ class _TimerState extends State<Timer> {
       onFinished: () {},
     );
     _countdownTimer.start();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    restartCounter();
   }
 
   @override
@@ -119,7 +130,11 @@ class _TimerState extends State<Timer> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    print("bin picked up");
+                    countdownSeconds = 180;
+                    restartCounter();
+                  },
                   icon: const Icon(Icons.check_box),
                   label: const Text('Bin Picked Up'),
                 ),

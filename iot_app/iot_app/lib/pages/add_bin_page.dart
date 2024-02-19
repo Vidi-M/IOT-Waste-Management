@@ -1,5 +1,6 @@
 //import 'dart:ffi';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -20,11 +21,19 @@ class _AddBinPageState extends State<AddBinPage> {
 
   final LocationFinder location = LocationFinder();
 
+  late String current_uID = FirebaseAuth.instance.currentUser!.uid;
+
+
   late DatabaseReference dbRef;
   List<String> nodes = [];
 
   Future<void> fetchNumBins() async {
     DataSnapshot snapshot = await dbRef.get();
+
+    if (snapshot.value == null) {
+      return;
+    }
+
     Map<dynamic, dynamic> bin = snapshot.value as Map;
     bin.forEach((key, value) {
       nodes.add(value['binName']);
@@ -34,7 +43,7 @@ class _AddBinPageState extends State<AddBinPage> {
   @override
   void initState() {
     super.initState();
-    dbRef = FirebaseDatabase.instance.ref().child("Bins");
+    dbRef = FirebaseDatabase.instance.ref().child("Bins").child(current_uID);
     fetchNumBins();
   }
 

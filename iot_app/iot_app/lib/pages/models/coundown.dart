@@ -25,7 +25,7 @@ class CountdownTimer {
   // start timer
   void start() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      //_temperatureDecreased = false;
+      // //_temperatureDecreased = false;
       // if (double.parse(temp) > 25) {
       //   _countdownSeconds -= 2;
       //   //_count = _countdownSeconds;
